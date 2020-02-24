@@ -23,6 +23,9 @@ class ViewOne : View {
 
         val action: Int = event.actionMasked
 
+        val eventSring = event.toString()
+        Log.d(DEBUG_TAG, eventSring)
+
         when (action) {
             MotionEvent.ACTION_DOWN -> {
                 Log.d(DEBUG_TAG, "Action was DOWN")
