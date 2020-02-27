@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import android.util.Log
+import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 
@@ -12,13 +13,15 @@ class ViewOne : View {
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
+    private val myGestureDetector = GestureDetector(context, myGestureListener())
+
     init {
         // this - reference to current class
         this.setBackgroundColor(Color.argb(128,32,64,255))
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-
+/*
         val DEBUG_TAG = "MyTask"
 
         val action: Int = event.actionMasked
@@ -49,5 +52,23 @@ class ViewOne : View {
             }
             else -> return super.onTouchEvent(event)
         }
+         */
+        return myGestureDetector.onTouchEvent(event) || super.onTouchEvent(event)
     }
+
+    inner class myGestureListener: GestureDetector.SimpleOnGestureListener() {
+        override fun onDown(event: MotionEvent): Boolean {
+            return true
+        }
+
+        override fun onSingleTapUp(event: MotionEvent): Boolean {
+            Log.d(LOGTAG, "SingleTapUp")
+            return true
+        }
+    }
+
+    companion object {
+        const val LOGTAG = "MyTask"
+    }
+
 }
